@@ -1,0 +1,34 @@
+$:.unshift("/Library/RubyMotion/lib")
+require 'motion/project/template/ios'
+
+begin
+  require 'bundler'
+  Bundler.require
+rescue LoadError
+end
+
+Motion::Project::App.setup do |app|
+  # Use `rake config' to see complete project settings.
+  
+  app.frameworks += %w(CoreLocation MapKit CoreServices)
+  app.frameworks.uniq!
+  app.name                   = 'Auto Martin'
+  app.icons                  = ['icon-57.png', 'icon-72.png', 'icon-114.png']
+  app.prerendered_icon       = true
+  app.deployment_target      = '7.0'
+  app.sdk_version            = '7.0'
+  app.device_family          = [:iphone, :ipad]
+  app.identifier             = "org.larssen.AutoMartin"
+  app.interface_orientations = [:portrait, :landscape_left, :landscape_right, :portrait_upside_down]
+  app.testflight.sdk         = 'vendor/TestFlight'
+  app.testflight.api_token   = 'f052abd8d3f3d1ec05fa466772002ba1_MTI5MjE3MTIwMTMtMDktMDkgMDk6NTE6NDguOTkwNTgy'
+  app.testflight.team_token  = 'c0dbf67dff4b56cdbd8dd77258396000_MjcwMTUyMjAxMy0wOS0wOSAxMDo0MToxNC42NzU3MTA'
+  
+  app.info_plist['UIStatusBarHidden'] = true
+  
+  # app.release do
+    app.provisioning_profile           = "/Users/andrewlarssen/Library/MobileDevice/Provisioning Profiles/0A10B0DF-C167-4982-9D15-4A4933E0E779.mobileprovision"
+    app.codesign_certificate           = "iPhone Distribution: Andrew Larssen (SV2NNGUKDC)"
+    app.entitlements['get-task-allow'] = false
+  # end
+end
