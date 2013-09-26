@@ -7,6 +7,9 @@ class MoleLayer < CCLayer
     @touch_enabled = true
 
     if super
+      SimpleAudioEngine.sharedEngine.setBackgroundMusicVolume(0.5)
+      SimpleAudioEngine.sharedEngine.playBackgroundMusic('POL-catch-them-all-short.wav', loop: true)
+      
       # We need to get the screen size for positioning the sprite
       screen_size = CCDirector.sharedDirector.winSize
       @grass = CCSprite.spriteWithFile('Grass.png')
@@ -103,7 +106,7 @@ class MoleLayer < CCLayer
       @touch_enabled = false
       
       @game_state.score -= 50
-      SimpleAudioEngine.sharedEngine.playEffect "slap.wav" 
+      SimpleAudioEngine.sharedEngine.playEffect "Roar.m4a" 
     end
     
     @score_label.setString("Score: #{@game_state.score}")
@@ -117,6 +120,7 @@ class MoleLayer < CCLayer
   
   def end_game
     unscheduleAllSelectors
+    SimpleAudioEngine.sharedEngine.stopBackgroundMusic
     CCDirector.sharedDirector.replaceScene(FinishedScene.node)
   end
 end

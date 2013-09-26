@@ -12,8 +12,10 @@ class FinishedScene < CCScene
      if @game_state.score > high_score
        score_message = "You scored: #{@game_state.score}. That's a new high score!"
        high_score = defaults["high_score_#{@game_state.speed}"] = @game_state.score
+       sound_file = 'well_done.m4a'
      else
        score_message = "You scored: #{@game_state.score}. High score: #{high_score}"
+       sound_file = 'better_luck.m4a'
      end
      
      
@@ -38,10 +40,6 @@ class FinishedScene < CCScene
      @score_label.position = CGPointMake( screen_size.width / 2, 2 * screen_size.height / 4)
      self.addChild(@score_label, z:999)
      
-     
-     
-     
-     
      CCMenuItemFont.setFontName "Verdana"
      CCMenuItemFont.setFontSize 32
 
@@ -52,6 +50,8 @@ class FinishedScene < CCScene
      menu.alignItemsVertically
      
      self.addChild(menu, z:999)
+     
+     SimpleAudioEngine.sharedEngine.playEffect sound_file
    end
 
    self

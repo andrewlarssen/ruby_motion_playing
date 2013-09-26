@@ -65,5 +65,19 @@ class AppDelegate
     @director.pushScene(StartScene.node)
     true
   end
+     # [[Director sharedDirector] setLandscape: YES]; // optional
+     # [[Director sharedDirector] setDisplayFPS:YES]; // optional
 
+
+  def applicationWillResignActive(application)
+    @director.pause
+  end
+  
+  def applicationDidBecomeActive(application)
+    @director.resume
+  end
+  
+  def applicationWillTerminate(application)
+    @director.release
+  end
 end
